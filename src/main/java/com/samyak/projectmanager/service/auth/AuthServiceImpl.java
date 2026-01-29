@@ -4,6 +4,7 @@ import com.samyak.projectmanager.config.security.JwtUtil;
 import com.samyak.projectmanager.dto.request.LoginRequest;
 import com.samyak.projectmanager.dto.request.RegisterRequest;
 import com.samyak.projectmanager.entity.User;
+import com.samyak.projectmanager.exception.AccessDeniedException;
 import com.samyak.projectmanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,15 +38,16 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
     }
 
-
     @Override
     public String login(LoginRequest request) {
 
         User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+                .orElseThrow(() ->
+                        new AccessDeniedException("Invalid username or password")
+                );
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new AccessDeniedException("Invalid username or password");
         }
 
         user.setLastLoginAt(java.time.LocalDateTime.now());

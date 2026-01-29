@@ -29,4 +29,8 @@ public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
           AND tm.isActive = true
     """)
     List<TeamMember> findActiveMembersByTeamId(Long teamId);
+
+    long countByUserIdAndIsActiveTrue(Long userId);
+
+
 }

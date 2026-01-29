@@ -1,13 +1,15 @@
 package com.samyak.projectmanager.repository;
 
+import com.samyak.projectmanager.dto.projection.ProjectListProjection;
 import com.samyak.projectmanager.entity.Project;
 import com.samyak.projectmanager.entity.ProjectStatus;
-import com.samyak.projectmanager.dto.projection.ProjectListProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDateTime;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
@@ -29,4 +31,25 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
             @Param("status") ProjectStatus status,
             Pageable pageable
     );
+
+    @Query("""
+    SELECT COUNT(p)
+    FROM Project p
+    JOIN TeamMember tm ON tm.team = p.team
+    WHERE tm.user.id = :userId
+      AND tm.isActive = true
+      AND p.status = :status
+""")
+    long countProjectsForUserByStatus(Long userId, ProjectStatus status);
+
+
+    @Query("""
+    SELECT MAX(p.updatedAt)
+    FROM Project p
+    JOIN TeamMember tm ON tm.team = p.team
+    WHERE tm.user.id = :userId
+      AND tm.isActive = true
+""")
+    LocalDateTime findLastUpdatedProjectTime(Long userId);
+
 }
