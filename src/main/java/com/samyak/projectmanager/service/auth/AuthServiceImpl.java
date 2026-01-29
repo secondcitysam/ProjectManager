@@ -7,6 +7,7 @@ import com.samyak.projectmanager.entity.User;
 import com.samyak.projectmanager.exception.AccessDeniedException;
 import com.samyak.projectmanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,4 +57,9 @@ public class AuthServiceImpl implements AuthService {
         return jwtUtil.generateToken(user.getId(), user.getUsername());
     }
 
+    @Override
+    public void logout() {
+        // Stateless JWT logout → clear security context
+        SecurityContextHolder.clearContext();
+    }
 }

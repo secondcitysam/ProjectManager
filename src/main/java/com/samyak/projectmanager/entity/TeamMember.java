@@ -23,8 +23,6 @@ public class TeamMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ---- Relationships ----
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "team_id")
     private Team team;
@@ -33,20 +31,24 @@ public class TeamMember {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // ---- Role & Lifecycle ----
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TeamRole role;
 
     @Column(nullable = false)
-    private Boolean isActive = true;
+    private Boolean isActive;
 
     private LocalDateTime joinedAt;
     private LocalDateTime removedAt;
 
     @PrePersist
-    void onJoin() {
-        joinedAt = LocalDateTime.now();
+    public void prePersist() {
+        if (joinedAt == null) {
+            joinedAt = LocalDateTime.now();
+        }
+
+        if (isActive == null) {
+            isActive = true;
+        }
     }
 }

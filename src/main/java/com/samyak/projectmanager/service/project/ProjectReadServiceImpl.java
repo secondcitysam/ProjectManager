@@ -1,5 +1,6 @@
 package com.samyak.projectmanager.service.project;
 
+import com.samyak.projectmanager.config.security.SecurityUtils;
 import com.samyak.projectmanager.dto.projection.ProjectListProjection;
 import com.samyak.projectmanager.entity.ProjectStatus;
 import com.samyak.projectmanager.entity.User;
@@ -7,7 +8,6 @@ import com.samyak.projectmanager.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,10 +22,8 @@ public class ProjectReadServiceImpl implements ProjectReadService {
             Pageable pageable
     ) {
 
-        User currentUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User currentUser = SecurityUtils.getCurrentUser();
+
 
         return projectRepository.findProjectsForUserByStatus(
                 currentUser.getId(),

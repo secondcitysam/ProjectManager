@@ -1,10 +1,13 @@
 package com.samyak.projectmanager.service.project;
 
+import com.samyak.projectmanager.config.security.SecurityUtils;
 import com.samyak.projectmanager.dto.request.CreateProjectRequest;
 import com.samyak.projectmanager.entity.*;
-import com.samyak.projectmanager.repository.*;
+import com.samyak.projectmanager.repository.ProjectLifecycleEventRepository;
+import com.samyak.projectmanager.repository.ProjectRepository;
+import com.samyak.projectmanager.repository.TeamMemberRepository;
+import com.samyak.projectmanager.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,10 +23,8 @@ public class ProjectServiceImpl implements ProjectService {
     public void createProject(Long teamId, CreateProjectRequest request) {
 
         // ---- AUDIT POINT #1: current user ----
-        User currentUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User currentUser = SecurityUtils.getCurrentUser();
+
 
         // ---- AUDIT POINT #2: leader validation ----
         boolean isLeader = teamMemberRepository
@@ -64,10 +65,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void archiveProject(Long projectId, String reason) {
 
-        User currentUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User currentUser = SecurityUtils.getCurrentUser();
+
 
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
@@ -109,10 +108,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void restoreProject(Long projectId) {
 
-        User currentUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User currentUser = SecurityUtils.getCurrentUser();
+
 
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Project not found"));

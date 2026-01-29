@@ -1,5 +1,6 @@
 package com.samyak.projectmanager.service.team;
 
+import com.samyak.projectmanager.config.security.SecurityUtils;
 import com.samyak.projectmanager.dto.request.CreateTeamRequest;
 import com.samyak.projectmanager.entity.Team;
 import com.samyak.projectmanager.entity.TeamMember;
@@ -9,7 +10,6 @@ import com.samyak.projectmanager.repository.TeamMemberRepository;
 import com.samyak.projectmanager.repository.TeamRepository;
 import com.samyak.projectmanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,10 +24,8 @@ public class TeamServiceImpl implements TeamService {
     public void createTeam(CreateTeamRequest request) {
 
         // ---- AUDIT POINT #1: current user ----
-        User currentUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User currentUser = SecurityUtils.getCurrentUser();
+
 
         // ---- Create team ----
         Team team = Team.builder()
@@ -52,10 +50,8 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void addMember(Long teamId, String userIdentifier) {
 
-        User currentUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User currentUser = SecurityUtils.getCurrentUser();
+
 
         // ---- AUDIT POINT #2: leader check ----
         boolean isLeader = teamMemberRepository
@@ -93,10 +89,7 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void removeMember(Long teamId, Long userId) {
 
-        User currentUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User currentUser = SecurityUtils.getCurrentUser();
 
         boolean isLeader = teamMemberRepository
                 .existsByTeamIdAndUserIdAndRoleAndIsActiveTrue(

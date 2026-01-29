@@ -25,22 +25,30 @@ public class Team {
     private String description;
 
     @Column(nullable = false)
-    private Boolean isActive = true;
+    private Boolean isActive;
 
     @Column(nullable = false)
-    private Long createdBy; // userId of creator (leader)
+    private Long createdBy;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     @PrePersist
-    void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = createdAt;
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+
+        if (createdAt == null) {
+            createdAt = now;
+        }
+        updatedAt = now;
+
+        if (isActive == null) {
+            isActive = true;
+        }
     }
 
     @PreUpdate
-    void onUpdate() {
+    public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
 }

@@ -33,5 +33,5 @@ spring.thymeleaf.cache=false
 # ===============================
 # JWT (WILL USE NEXT)
 # ===============================
-jwt.secret=THIS_IS_A_DELIBERATELY_LONG_32_BYTE_SECRET_KEY_FOR_HS256
+jwt.secret=super-secret-key-change-later
 jwt.expiration=3600000

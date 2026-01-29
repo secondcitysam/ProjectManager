@@ -1,12 +1,12 @@
 package com.samyak.projectmanager.service.dashboard;
 
+import com.samyak.projectmanager.config.security.SecurityUtils;
 import com.samyak.projectmanager.dto.response.DashboardSummaryResponse;
 import com.samyak.projectmanager.entity.ProjectStatus;
 import com.samyak.projectmanager.entity.User;
 import com.samyak.projectmanager.repository.ProjectRepository;
 import com.samyak.projectmanager.repository.TeamMemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,10 +22,7 @@ public class DashboardServiceImpl implements DashboardService {
     public DashboardSummaryResponse getDashboardSummary() {
 
         // ---- AUDIT POINT #1: current user ----
-        User currentUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User currentUser = SecurityUtils.getCurrentUser();
 
         long teamsCount = teamMemberRepository
                 .countByUserIdAndIsActiveTrue(currentUser.getId());
