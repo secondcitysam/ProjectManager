@@ -23,7 +23,18 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+
+                        // 🌍 PUBLIC PAGES
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/api/auth/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**"
+                        ).permitAll()
+
+                        // 🔒 EVERYTHING ELSE
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(
@@ -33,6 +44,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
