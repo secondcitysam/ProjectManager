@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"
+     th:fragment="navbar">
+
+    <div class="container-fluid">
+        <a class="navbar-brand fw-semibold" href="/dashboard">
+            Project Manager
+        </a>
+
+        <div class="d-flex align-items-center text-white">
+            <span class="me-3 small">
+                Logged in as <strong th:text="${#authentication.principal.username}">user</strong>
+            </span>
+
+            <form th:action="@{/api/auth/logout}" method="post">
+                <button class="btn btn-outline-light btn-sm">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

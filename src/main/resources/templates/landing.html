@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Project Manager</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    >
+</head>
+
+<body class="bg-light">
+
+<!-- HERO SECTION -->
+<section class="py-5 bg-white border-bottom">
+    <div class="container text-center py-5">
+
+        <h1 class="display-5 fw-bold mb-3">
+            Project Manager
+        </h1>
+
+        <p class="lead text-muted mb-4">
+            A team-based project management system focused on ownership,
+            lifecycle control, and audit-friendly design.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/login" class="btn btn-dark btn-lg">
+                Login to Workspace
+            </a>
+            <a href="#features" class="btn btn-outline-secondary btn-lg">
+                Explore Features
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section id="features" class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-semibold">Why Project Manager?</h2>
+            <p class="text-muted">
+                Designed as a backend-first, production-grade system
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Team-Based Ownership</h5>
+                        <p class="card-text text-muted small">
+                            Organize work around long-lived teams with clear
+                            leader and member responsibilities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Project Lifecycle Control</h5>
+                        <p class="card-text text-muted small">
+                            Manage active and archived projects without losing
+                            historical context.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Audit & History Tracking</h5>
+                        <p class="card-text text-muted small">
+                            Every project action is recorded, ensuring
+                            traceability and accountability.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Secure Access Control</h5>
+                        <p class="card-text text-muted small">
+                            Role-based permissions enforced at the backend,
+                            not just the UI.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="py-5 bg-dark text-white">
+    <div class="container text-center">
+
+        <h3 class="fw-semibold mb-3">
+            Ready to manage your projects professionally?
+        </h3>
+
+        <a href="/login" class="btn btn-outline-light btn-lg">
+            Enter Workspace
+        </a>
+
+    </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>

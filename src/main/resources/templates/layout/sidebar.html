@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div class="bg-white border-end vh-100 p-3"
+     th:fragment="sidebar">
+
+    <h6 class="text-uppercase text-muted mb-3">
+        Workspace
+    </h6>
+
+    <ul class="nav nav-pills flex-column gap-1">
+
+        <li class="nav-item">
+            <a class="nav-link active" href="/dashboard">
+                Dashboard
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/teams">
+                Teams
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/projects">
+                Projects
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/projects?status=ARCHIVED">
+                Archived Projects
+            </a>
+        </li>
+
+    </ul>
+
+    <hr class="my-4">
+
+    <h6 class="text-uppercase text-muted mb-2">
+        Insights
+    </h6>
+
+    <ul class="nav nav-pills flex-column gap-1">
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard">
+                Overview
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>
