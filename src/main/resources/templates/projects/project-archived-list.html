@@ -1,0 +1,42 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:fragment="content">
+
+    <div class="mb-4">
+        <h3 class="fw-semibold">Archived Projects</h3>
+        <p class="text-muted">
+            Projects preserved for audit and history
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+
+            <table class="table mb-0 align-middle">
+                <thead class="table-light">
+                <tr class="small text-muted">
+                    <th>Name</th>
+                    <th>Team</th>
+                    <th>Status</th>
+                    <th>Archived On</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td class="fw-semibold">Legacy API</td>
+                    <td>Backend Team</td>
+                    <td>
+                        <span class="badge bg-warning text-dark">
+                            ARCHIVED
+                        </span>
+                    </td>
+                    <td class="text-muted small">2025-12-01</td>
+                </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>

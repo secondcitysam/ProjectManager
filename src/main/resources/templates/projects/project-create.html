@@ -1,0 +1,66 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:fragment="content">
+
+    <!-- HEADER -->
+    <div class="mb-4">
+        <h3 class="fw-semibold">Create Project</h3>
+        <p class="text-muted">
+            Projects belong to a team and follow a lifecycle
+        </p>
+    </div>
+
+    <!-- FORM -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <form method="post" action="#">
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Project Name
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Enter project name">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Team
+                    </label>
+                    <select class="form-select">
+                        <option selected disabled>
+                            Select team
+                        </option>
+                        <option>Backend Team</option>
+                        <option>Frontend Team</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Description
+                    </label>
+                    <textarea class="form-control"
+                              rows="4"
+                              placeholder="Optional project description"></textarea>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="/projects"
+                       class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Create Project
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

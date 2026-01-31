@@ -1,0 +1,98 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:fragment="content">
+
+    <!-- PAGE HEADER -->
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h3 class="fw-semibold">Teams</h3>
+            <p class="text-muted mb-0">
+                Teams you are part of
+            </p>
+        </div>
+
+        <a href="/teams/create"
+           class="btn btn-primary">
+            + Create Team
+        </a>
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div th:if="${#lists.isEmpty(teams)}"
+         class="alert alert-light border text-center">
+        <p class="mb-1 fw-semibold">
+            No teams yet
+        </p>
+        <small class="text-muted">
+            Create your first team to get started
+        </small>
+    </div>
+
+    <!-- TEAM LIST -->
+    <div th:if="${!#lists.isEmpty(teams)}"
+         class="card shadow-sm">
+
+        <div class="card-body p-0">
+
+            <table class="table mb-0 align-middle">
+                <thead class="table-light">
+                <tr class="small text-muted">
+                    <th>Team</th>
+                    <th>Your Role</th>
+                    <th>Members</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="team : ${teams}">
+
+                    <!-- TEAM NAME -->
+                    <td class="fw-semibold"
+                        th:text="${team.name}">
+                        Team Name
+                    </td>
+
+                    <!-- ROLE -->
+                    <td>
+                        <span class="badge bg-primary"
+                              th:if="${team.role.name() == 'LEADER'}">
+                            LEADER
+                        </span>
+
+                        <span class="badge bg-secondary"
+                              th:if="${team.role.name() == 'MEMBER'}">
+                            MEMBER
+                        </span>
+                    </td>
+
+                    <!-- MEMBERS COUNT -->
+                    <td th:text="${team.membersCount}">
+                        0
+                    </td>
+
+                    <!-- STATUS (STATIC FOR NOW) -->
+                    <td>
+                        <span class="badge bg-success">
+                            Active
+                        </span>
+                    </td>
+
+                    <!-- ACTION -->
+                    <td class="text-end">
+                        <a th:href="@{/teams/{id}(id=${team.id})}"
+                           class="btn btn-sm btn-outline-secondary">
+                            View
+                        </a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

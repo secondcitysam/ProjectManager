@@ -1,0 +1,69 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:fragment="content">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-semibold">Projects</h3>
+            <p class="text-muted mb-0">
+                Active projects across your teams
+            </p>
+        </div>
+
+        <a href="/projects/create" class="btn btn-primary">
+            + Create Project
+        </a>
+    </div>
+
+    <!-- PROJECT TABLE -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+
+            <table class="table mb-0 align-middle">
+                <thead class="table-light">
+                <tr class="small text-muted">
+                    <th>Name</th>
+                    <th>Team</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <!-- Dummy rows for now -->
+                <tr>
+                    <td class="fw-semibold">Project Manager Backend</td>
+                    <td>Backend Team</td>
+                    <td>
+                        <span class="badge bg-success">ACTIVE</span>
+                    </td>
+                    <td class="text-muted small">2026-01-10</td>
+                    <td class="text-end">
+                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                            View
+                        </a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="fw-semibold">UI Refactor</td>
+                    <td>Frontend Team</td>
+                    <td>
+                        <span class="badge bg-success">ACTIVE</span>
+                    </td>
+                    <td class="text-muted small">2026-01-18</td>
+                    <td class="text-end">
+                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                            View
+                        </a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

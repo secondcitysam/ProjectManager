@@ -1,0 +1,115 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:fragment="content">
+
+    <!-- PAGE HEADER -->
+    <div class="mb-4">
+        <h3 class="fw-semibold">Dashboard</h3>
+        <p class="text-muted">
+            Workspace overview and system insights
+        </p>
+    </div>
+
+    <!-- METRICS ROW -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Teams</h6>
+                    <h3 class="fw-bold">—</h3>
+                    <span class="badge bg-secondary">All time</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Active Projects</h6>
+                    <h3 class="fw-bold">—</h3>
+                    <span class="badge bg-success">Active</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Archived Projects</h6>
+                    <h3 class="fw-bold">—</h3>
+                    <span class="badge bg-warning text-dark">Archived</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Your Role</h6>
+                    <h4 class="fw-semibold">Leader / Member</h4>
+                    <span class="badge bg-primary">Workspace</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SECOND ROW -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="fw-semibold mb-3">Recent Activity</h6>
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item text-muted">Project created</li>
+                        <li class="list-group-item text-muted">Member added</li>
+                        <li class="list-group-item text-muted">Project archived</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="fw-semibold mb-3">Team Summary</h6>
+                    <table class="table table-sm table-borderless">
+                        <thead>
+                        <tr class="text-muted small">
+                            <th>Team</th>
+                            <th>Members</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Backend Team</td>
+                            <td>—</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Frontend Team</td>
+                            <td>—</td>
+                            <td><span class="badge bg-secondary">Idle</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h6 class="fw-semibold mb-2">System Notes</h6>
+            <p class="text-muted small mb-0">
+                All data shown is governed by role-based access control
+                and project lifecycle rules.
+            </p>
+        </div>
+    </div>
+
+</div>

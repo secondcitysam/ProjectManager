@@ -1,7 +1,9 @@
 package com.samyak.projectmanager.service.team;
 
 import com.samyak.projectmanager.config.security.SecurityUtils;
+import com.samyak.projectmanager.dto.projection.TeamSummaryProjection;
 import com.samyak.projectmanager.dto.request.CreateTeamRequest;
+import com.samyak.projectmanager.dto.response.TeamDetailsDto;
 import com.samyak.projectmanager.entity.Team;
 import com.samyak.projectmanager.entity.TeamMember;
 import com.samyak.projectmanager.entity.TeamRole;
@@ -10,6 +12,8 @@ import com.samyak.projectmanager.repository.TeamMemberRepository;
 import com.samyak.projectmanager.repository.TeamRepository;
 import com.samyak.projectmanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -115,4 +119,34 @@ public class TeamServiceImpl implements TeamService {
 
         teamMemberRepository.save(member);
     }
+
+
+    @Override
+    public Page<TeamSummaryProjection> getTeamsForCurrentUser(Pageable pageable) {
+
+        User currentUser = SecurityUtils.getCurrentUser();
+
+        return teamRepository.findTeamsForUser(
+                currentUser.getId(),
+                pageable
+        );
+    }
+
+    @Override
+    public TeamDetailsDto getTeamDetails(Long teamId) {
+
+        User currentUser = SecurityUtils.getCurrentUser();
+
+        TeamDetailsDto details = teamRepository.findTeamDetails(
+                teamId,
+                currentUser.getId()
+        );
+
+        if (details == null) {
+            throw new RuntimeException("Team not found or access denied");
+        }
+
+        return details;
+    }
+
 }

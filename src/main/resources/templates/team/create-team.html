@@ -1,0 +1,62 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:fragment="content">
+
+    <!-- PAGE HEADER -->
+    <div class="mb-4">
+        <h3 class="fw-semibold">Create Team</h3>
+        <p class="text-muted">
+            Create a new team and become its leader
+        </p>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <form method="post" action="/teams/create">
+
+                <!-- TEAM NAME -->
+                <div class="mb-3">
+                    <label class="form-label small text-muted">
+                        Team Name
+                    </label>
+                    <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="e.g. Backend Team"
+                            required>
+                </div>
+
+                <!-- DESCRIPTION -->
+                <div class="mb-4">
+                    <label class="form-label small text-muted">
+                        Description
+                    </label>
+                    <textarea
+                            name="description"
+                            class="form-control"
+                            rows="3"
+                            placeholder="What does this team work on?">
+                    </textarea>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="d-flex justify-content-between">
+                    <a href="/teams"
+                       class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Create Team
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

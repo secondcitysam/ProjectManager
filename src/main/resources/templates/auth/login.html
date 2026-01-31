@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login · Project Manager</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+</head>
+
+<body class="bg-body-tertiary">
+
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+
+    <div class="col-md-4">
+
+        <!-- LOGIN CARD -->
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body p-4">
+
+                <!-- HEADER -->
+                <div class="text-center mb-4">
+                    <h4 class="fw-semibold text-primary mb-1">
+                        Project Manager
+                    </h4>
+                    <p class="text-muted small">
+                        Sign in to your workspace
+                    </p>
+                </div>
+
+                <!-- LOGIN FORM (JWT) -->
+                <form id="loginForm">
+
+                    <div class="mb-3">
+                        <label class="form-label small">
+                            Username
+                        </label>
+                        <input
+                                type="text"
+                                id="username"
+                                class="form-control"
+                                placeholder="Enter username"
+                                required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small">
+                            Password
+                        </label>
+                        <input
+                                type="password"
+                                id="password"
+                                class="form-control"
+                                placeholder="Enter password"
+                                required>
+                    </div>
+
+                    <button
+                            type="submit"
+                            class="btn btn-primary w-100">
+                        Login
+                    </button>
+
+                    <div class="text-center mt-3">
+                        <a href="/signup"
+                           class="text-decoration-none small text-muted">
+                            New here? Create an account
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="text-center mt-3">
+            <a href="/" class="text-decoration-none small text-muted">
+                ← Back to landing page
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- LOGIN SCRIPT -->
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // Stop default form submit
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Invalid credentials");
+            }
+            return response.json();
+        })
+        .then(data => {
+            // JWT cookie is set by backend
+            window.location.href = "/dashboard";
+        })
+        .catch(error => {
+            alert("Invalid username or password");
+        });
+    });
+</script>
+
+</body>
+</html>

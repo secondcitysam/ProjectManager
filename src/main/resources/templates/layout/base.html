@@ -15,15 +15,15 @@
 
 <body class="bg-body-tertiary">
 
-<!-- TOP NAVBAR -->
-<div th:replace="layout/navbar :: navbar"></div>
+<!-- NAVBAR -->
+<div th:replace="~{layout/navbar :: navbar}"></div>
 
 <div class="container-fluid">
     <div class="row">
 
         <!-- SIDEBAR -->
         <div class="col-md-2 p-0">
-            <div th:replace="layout/sidebar :: sidebar"></div>
+            <div th:replace="~{layout/sidebar :: sidebar}"></div>
         </div>
 
         <!-- MAIN CONTENT -->

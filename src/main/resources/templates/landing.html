@@ -8,30 +8,29 @@
     <!-- Bootstrap CSS -->
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-    >
+            rel="stylesheet">
 </head>
 
-<body class="bg-light">
+<body class="bg-body-tertiary">
 
 <!-- HERO SECTION -->
-<section class="py-5 bg-white border-bottom">
-    <div class="container text-center py-5">
+<section class="py-5 bg-primary text-white">
+    <div class="container py-5 text-center">
 
         <h1 class="display-5 fw-bold mb-3">
             Project Manager
         </h1>
 
-        <p class="lead text-muted mb-4">
-            A team-based project management system focused on ownership,
-            lifecycle control, and audit-friendly design.
+        <p class="lead mb-4 text-white-50">
+            A backend-first, team-based project management system focused on
+            ownership, lifecycle control, and audit-ready design.
         </p>
 
         <div class="d-flex justify-content-center gap-3">
-            <a href="/login" class="btn btn-dark btn-lg">
+            <a href="/login" class="btn btn-light btn-lg px-4">
                 Login to Workspace
             </a>
-            <a href="#features" class="btn btn-outline-secondary btn-lg">
+            <a href="#features" class="btn btn-outline-light btn-lg px-4">
                 Explore Features
             </a>
         </div>
@@ -44,9 +43,9 @@
     <div class="container">
 
         <div class="text-center mb-5">
-            <h2 class="fw-semibold">Why Project Manager?</h2>
+            <h2 class="fw-semibold">Built for Serious Backend Systems</h2>
             <p class="text-muted">
-                Designed as a backend-first, production-grade system
+                Designed with real-world engineering constraints in mind
             </p>
         </div>
 
@@ -55,10 +54,12 @@
             <div class="col-md-3">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Team-Based Ownership</h5>
+                        <h5 class="card-title text-primary">
+                            Team-Based Ownership
+                        </h5>
                         <p class="card-text text-muted small">
-                            Organize work around long-lived teams with clear
-                            leader and member responsibilities.
+                            Organize long-lived teams with clear leader and
+                            member responsibilities enforced at backend level.
                         </p>
                     </div>
                 </div>
@@ -67,10 +68,12 @@
             <div class="col-md-3">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Project Lifecycle Control</h5>
+                        <h5 class="card-title text-primary">
+                            Project Lifecycle Control
+                        </h5>
                         <p class="card-text text-muted small">
-                            Manage active and archived projects without losing
-                            historical context.
+                            Manage active and archived projects without hard
+                            deletes, preserving historical context.
                         </p>
                     </div>
                 </div>
@@ -79,10 +82,12 @@
             <div class="col-md-3">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Audit & History Tracking</h5>
+                        <h5 class="card-title text-primary">
+                            Audit & History Tracking
+                        </h5>
                         <p class="card-text text-muted small">
-                            Every project action is recorded, ensuring
-                            traceability and accountability.
+                            Track creation, archival, and restoration events
+                            to support accountability and traceability.
                         </p>
                     </div>
                 </div>
@@ -91,10 +96,12 @@
             <div class="col-md-3">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Secure Access Control</h5>
+                        <h5 class="card-title text-primary">
+                            Secure Access Control
+                        </h5>
                         <p class="card-text text-muted small">
-                            Role-based permissions enforced at the backend,
-                            not just the UI.
+                            Role-based permissions enforced via JWT and backend
+                            authorization rules.
                         </p>
                     </div>
                 </div>
@@ -105,15 +112,74 @@
     </div>
 </section>
 
-<!-- CALL TO ACTION -->
+<!-- HOW IT WORKS -->
+<section class="py-5 bg-white border-top border-bottom">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-semibold">How It Works</h2>
+            <p class="text-muted">
+                Simple workflow, powerful backend guarantees
+            </p>
+        </div>
+
+        <div class="row text-center g-4">
+
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="fw-semibold">1. Create Teams</h5>
+                        <p class="text-muted small">
+                            Leaders create teams and manage members with
+                            ownership-based access control.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="fw-semibold">2. Manage Projects</h5>
+                        <p class="text-muted small">
+                            Projects belong to teams and follow a strict
+                            lifecycle from active to archived.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="fw-semibold">3. Track History</h5>
+                        <p class="text-muted small">
+                            All major actions are recorded to support audit
+                            trails and long-term clarity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- FINAL CTA -->
 <section class="py-5 bg-dark text-white">
     <div class="container text-center">
 
         <h3 class="fw-semibold mb-3">
-            Ready to manage your projects professionally?
+            Designed as a Resume-Defining Backend Project
         </h3>
 
-        <a href="/login" class="btn btn-outline-light btn-lg">
+        <p class="text-white-50 mb-4">
+            Clean architecture, optimized reads, lifecycle awareness, and
+            real-world backend practices.
+        </p>
+
+        <a href="/login" class="btn btn-outline-light btn-lg px-4">
             Enter Workspace
         </a>
 
