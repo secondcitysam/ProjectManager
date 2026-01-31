@@ -54,4 +54,9 @@ public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
     List<TeamMemberDto> findActiveMembers(
             @Param("teamId") Long teamId
     );
+    Optional<TeamMember> findByTeamIdAndUserId(
+            Long teamId,
+            Long userId
+    );
+
 }

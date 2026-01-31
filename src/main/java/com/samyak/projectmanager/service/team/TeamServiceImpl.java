@@ -9,6 +9,8 @@ import com.samyak.projectmanager.entity.Team;
 import com.samyak.projectmanager.entity.TeamMember;
 import com.samyak.projectmanager.entity.TeamRole;
 import com.samyak.projectmanager.entity.User;
+import com.samyak.projectmanager.exception.UiBadRequestException;
+import com.samyak.projectmanager.exception.UiNotFoundException;
 import com.samyak.projectmanager.repository.TeamMemberRepository;
 import com.samyak.projectmanager.repository.TeamRepository;
 import com.samyak.projectmanager.repository.UserRepository;
@@ -59,8 +61,6 @@ public class TeamServiceImpl implements TeamService {
 
         User currentUser = SecurityUtils.getCurrentUser();
 
-
-        // ---- AUDIT POINT #2: leader check ----
         boolean isLeader = teamMemberRepository
                 .existsByTeamIdAndUserIdAndRoleAndIsActiveTrue(
                         teamId,
@@ -69,28 +69,47 @@ public class TeamServiceImpl implements TeamService {
                 );
 
         if (!isLeader) {
-            throw new RuntimeException("Only team leader can add members");
+            throw new UiBadRequestException("Only team leader can add members");
         }
 
         User userToAdd = userRepository.findByUsername(userIdentifier)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        teamMemberRepository.findByTeamIdAndUserIdAndIsActiveTrue(teamId, userToAdd.getId())
-                .ifPresent(tm -> {
-                    throw new RuntimeException("User already a team member");
-                });
+                .orElseThrow(() ->
+                        new UiNotFoundException("User not found")
+                );
 
         Team team = teamRepository.findById(teamId)
-                .orElseThrow(() -> new RuntimeException("Team not found"));
+                .orElseThrow(() ->
+                        new UiNotFoundException("Team not found")
+                );
 
-        TeamMember member = TeamMember.builder()
-                .team(team)
-                .user(userToAdd)
-                .role(TeamRole.MEMBER)
-                .isActive(true)
-                .build();
+        // 🔑 CHECK ANY EXISTING MEMBERSHIP (ACTIVE OR INACTIVE)
+        teamMemberRepository
+                .findByTeamIdAndUserId(teamId, userToAdd.getId())
+                .ifPresentOrElse(existing -> {
 
-        teamMemberRepository.save(member);
+                    if (existing.getIsActive()) {
+                        throw new UiBadRequestException("User is already a team member");
+                    }
+
+                    // ✅ RE-ACTIVATE
+                    existing.setIsActive(true);
+                    existing.setRemovedAt(null);
+                    existing.setJoinedAt(java.time.LocalDateTime.now());
+
+                    teamMemberRepository.save(existing);
+
+                }, () -> {
+
+                    // ✅ FIRST TIME ADD
+                    TeamMember member = TeamMember.builder()
+                            .team(team)
+                            .user(userToAdd)
+                            .role(TeamRole.MEMBER)
+                            .isActive(true)
+                            .build();
+
+                    teamMemberRepository.save(member);
+                });
     }
 
     @Override

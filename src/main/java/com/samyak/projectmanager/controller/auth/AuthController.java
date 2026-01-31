@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,21 +30,24 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ApiResponse<?> login(
-            @RequestBody LoginRequest request,
+    public ResponseEntity<ApiResponse<?>> login(
+            @Valid @RequestBody LoginRequest request,
             HttpServletResponse response
     ) {
+
         String token = authService.login(request);
 
         Cookie cookie = new Cookie("ACCESS_TOKEN", token);
         cookie.setHttpOnly(true);
-        cookie.setSecure(false); // true in prod (HTTPS)
+        cookie.setSecure(false); // true in production (HTTPS)
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60); // 1 hour
 
         response.addCookie(cookie);
 
-        return ApiResponse.successMessage("Login successful");
+        return ResponseEntity.ok(
+                ApiResponse.successMessage("Login successful")
+        );
     }
 
     @PostMapping("/logout")

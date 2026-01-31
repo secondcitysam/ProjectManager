@@ -45,18 +45,18 @@ public class TeamUiController {
     public String createTeam(
             @ModelAttribute CreateTeamRequest request
     ) {
-
         teamService.createTeam(request);
-
         return "redirect:/teams";
     }
 
+    // ===============================
+    // TEAM DETAILS
+    // ===============================
     @GetMapping("/teams/{id}")
     public String teamDetails(
             @PathVariable Long id,
             Model model
     ) {
-
         model.addAttribute(
                 "team",
                 teamService.getTeamDetails(id)
@@ -64,38 +64,4 @@ public class TeamUiController {
 
         return "team/team-details-page";
     }
-    @GetMapping("/teams/{id}/members")
-    public String teamMembers(
-            @PathVariable Long id,
-            Model model
-    ) {
-        model.addAttribute("teamId", id);
-        model.addAttribute(
-                "members",
-                teamService.getTeamMembers(id)
-        );
-
-        return "team/team-members-page";
-    }
-
-
-    @PostMapping("/teams/{id}/members/add")
-    public String addMember(
-            @PathVariable Long id,
-            @RequestParam String username
-    ) {
-        teamService.addMember(id, username);
-        return "redirect:/teams/" + id + "/members";
-    }
-
-    @PostMapping("/teams/{id}/members/{userId}/remove")
-    public String removeMember(
-            @PathVariable Long id,
-            @PathVariable Long userId
-    ) {
-        teamService.removeMember(id, userId);
-        return "redirect:/teams/" + id + "/members";
-    }
-
-
 }

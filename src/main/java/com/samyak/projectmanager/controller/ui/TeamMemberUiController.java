@@ -21,7 +21,6 @@ public class TeamMemberUiController {
             @PathVariable Long teamId,
             Model model
     ) {
-
         model.addAttribute(
                 "team",
                 teamService.getTeamDetails(teamId)
@@ -43,9 +42,7 @@ public class TeamMemberUiController {
             @PathVariable Long teamId,
             @RequestParam String userIdentifier
     ) {
-
         teamService.addMember(teamId, userIdentifier);
-
         return "redirect:/teams/" + teamId + "/members";
     }
 
@@ -57,9 +54,7 @@ public class TeamMemberUiController {
             @PathVariable Long teamId,
             @PathVariable Long userId
     ) {
-
         teamService.removeMember(teamId, userId);
-
         return "redirect:/teams/" + teamId + "/members";
     }
 }
