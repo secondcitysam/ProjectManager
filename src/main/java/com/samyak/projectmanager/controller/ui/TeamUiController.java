@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -67,5 +64,38 @@ public class TeamUiController {
 
         return "team/team-details-page";
     }
+    @GetMapping("/teams/{id}/members")
+    public String teamMembers(
+            @PathVariable Long id,
+            Model model
+    ) {
+        model.addAttribute("teamId", id);
+        model.addAttribute(
+                "members",
+                teamService.getTeamMembers(id)
+        );
+
+        return "team/team-members-page";
+    }
+
+
+    @PostMapping("/teams/{id}/members/add")
+    public String addMember(
+            @PathVariable Long id,
+            @RequestParam String username
+    ) {
+        teamService.addMember(id, username);
+        return "redirect:/teams/" + id + "/members";
+    }
+
+    @PostMapping("/teams/{id}/members/{userId}/remove")
+    public String removeMember(
+            @PathVariable Long id,
+            @PathVariable Long userId
+    ) {
+        teamService.removeMember(id, userId);
+        return "redirect:/teams/" + id + "/members";
+    }
+
 
 }

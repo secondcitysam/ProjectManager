@@ -4,14 +4,16 @@ import com.samyak.projectmanager.dto.request.LoginRequest;
 import com.samyak.projectmanager.dto.request.RegisterRequest;
 import com.samyak.projectmanager.dto.response.ApiResponse;
 import com.samyak.projectmanager.service.auth.AuthService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.Duration;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,23 +30,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ApiResponse<?> login(
-            @Valid @RequestBody LoginRequest request,
+            @RequestBody LoginRequest request,
             HttpServletResponse response
     ) {
-        String jwt = authService.login(request);
+        String token = authService.login(request);
 
-        // ✅ SET JWT AS HTTP-ONLY COOKIE (UI SUPPORT)
-        ResponseCookie cookie = ResponseCookie.from("ACCESS_TOKEN", jwt)
-                .httpOnly(true)
-                .secure(false) // true in prod (HTTPS)
-                .path("/")
-                .maxAge(Duration.ofHours(1))
-                .sameSite("Lax")
-                .build();
+        Cookie cookie = new Cookie("ACCESS_TOKEN", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); // true in prod (HTTPS)
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60); // 1 hour
 
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        response.addCookie(cookie);
 
-        return ApiResponse.success(jwt);
+        return ApiResponse.successMessage("Login successful");
     }
 
     @PostMapping("/logout")

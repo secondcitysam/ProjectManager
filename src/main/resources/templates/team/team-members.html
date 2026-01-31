@@ -1,0 +1,91 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:fragment="content">
+
+    <!-- HEADER -->
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h3 class="fw-semibold"
+                th:text="${team.name}">
+                Team Name
+            </h3>
+            <p class="text-muted mb-0">
+                Manage team members
+            </p>
+        </div>
+
+        <a th:href="@{/teams/{id}(id=${team.id})}"
+           class="btn btn-outline-secondary btn-sm">
+            ← Back to Team
+        </a>
+    </div>
+
+    <!-- ADD MEMBER -->
+    <div th:if="${team.yourRole.name() == 'LEADER'}"
+         class="card shadow-sm mb-4">
+
+        <div class="card-body">
+            <h6 class="fw-semibold mb-2">Add Member</h6>
+
+            <form th:action="@{/teams/{id}/members/add(id=${team.id})}"
+                  method="post"
+                  class="d-flex gap-2">
+
+                <input type="text"
+                       name="userIdentifier"
+                       class="form-control"
+                       placeholder="Username"
+                       required>
+
+                <button class="btn btn-primary">
+                    Add
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MEMBERS LIST -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+
+            <table class="table mb-0 align-middle">
+                <thead class="table-light">
+                <tr class="small text-muted">
+                    <th>User</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="member : ${members}">
+                    <td th:text="${member.username}"></td>
+
+                    <td>
+                        <span class="badge"
+                              th:classappend="${member.role.name() == 'LEADER'}
+                                ? 'bg-primary' : 'bg-secondary'"
+                              th:text="${member.role}">
+                        </span>
+                    </td>
+
+                    <td class="text-end">
+                        <form th:if="${team.yourRole.name() == 'LEADER'
+                                      and member.role.name() != 'LEADER'}"
+                              th:action="@{/teams/{teamId}/members/{userId}/remove(
+                                   teamId=${team.id},
+                                   userId=${member.userId}
+                              )}"
+                              method="post">
+                            <button class="btn btn-sm btn-outline-danger">
+                                Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

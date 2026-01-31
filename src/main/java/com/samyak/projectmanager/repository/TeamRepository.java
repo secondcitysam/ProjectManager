@@ -2,12 +2,15 @@ package com.samyak.projectmanager.repository;
 
 import com.samyak.projectmanager.dto.projection.TeamSummaryProjection;
 import com.samyak.projectmanager.dto.response.TeamDetailsDto;
+import com.samyak.projectmanager.dto.response.TeamMemberDto;
 import com.samyak.projectmanager.entity.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
@@ -50,5 +53,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
             @Param("teamId") Long teamId,
             @Param("userId") Long userId
     );
+
 
 }

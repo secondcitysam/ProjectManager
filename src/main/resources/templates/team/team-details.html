@@ -3,30 +3,63 @@
 
     <!-- HEADER -->
     <div class="mb-4">
-        <h3 class="fw-semibold" th:text="${team.name}">Team</h3>
-        <p class="text-muted" th:text="${team.description}"></p>
+        <h3 class="fw-semibold"
+            th:text="${team.name}">
+            Team
+        </h3>
+        <p class="text-muted"
+           th:text="${team.description}">
+        </p>
     </div>
 
+    <!-- META CARDS -->
     <div class="row g-4 mb-4">
+
+        <!-- ROLE -->
         <div class="col-md-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h6 class="text-muted">Your Role</h6>
+                    <h6 class="text-muted">
+                        Your Role
+                    </h6>
                     <span class="badge bg-primary"
-                          th:text="${team.yourRole}"></span>
+                          th:text="${team.yourRole}">
+                    </span>
                 </div>
             </div>
         </div>
 
+        <!-- MEMBERS COUNT -->
         <div class="col-md-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h6 class="text-muted">Members</h6>
+                    <h6 class="text-muted">
+                        Members
+                    </h6>
                     <h4 class="fw-semibold"
-                        th:text="${team.membersCount}"></h4>
+                        th:text="${team.membersCount}">
+                    </h4>
                 </div>
             </div>
         </div>
+
+    </div>
+
+    <!-- ACTIONS (LEADER ONLY) -->
+    <div th:if="${team.yourRole.name() == 'LEADER'}"
+         class="card shadow-sm">
+
+        <div class="card-body">
+            <h6 class="fw-semibold mb-2">
+                Team Actions
+            </h6>
+
+            <a th:href="@{/teams/{id}/members(id=${team.id})}"
+               class="btn btn-outline-primary btn-sm">
+                Manage Members
+            </a>
+        </div>
+
     </div>
 
 </div>

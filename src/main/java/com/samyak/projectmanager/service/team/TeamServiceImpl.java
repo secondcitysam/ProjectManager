@@ -4,6 +4,7 @@ import com.samyak.projectmanager.config.security.SecurityUtils;
 import com.samyak.projectmanager.dto.projection.TeamSummaryProjection;
 import com.samyak.projectmanager.dto.request.CreateTeamRequest;
 import com.samyak.projectmanager.dto.response.TeamDetailsDto;
+import com.samyak.projectmanager.dto.response.TeamMemberDto;
 import com.samyak.projectmanager.entity.Team;
 import com.samyak.projectmanager.entity.TeamMember;
 import com.samyak.projectmanager.entity.TeamRole;
@@ -15,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -148,5 +151,25 @@ public class TeamServiceImpl implements TeamService {
 
         return details;
     }
+
+    @Override
+    public List<TeamMemberDto> getTeamMembers(Long teamId) {
+
+        User currentUser = SecurityUtils.getCurrentUser();
+
+        // 🔒 Ensure user is part of the team
+        boolean isMember = teamMemberRepository
+                .existsByTeamIdAndUserIdAndIsActiveTrue(
+                        teamId,
+                        currentUser.getId()
+                );
+
+        if (!isMember) {
+            throw new RuntimeException("Access denied");
+        }
+
+        return teamMemberRepository.findActiveMembers(teamId);
+    }
+
 
 }
